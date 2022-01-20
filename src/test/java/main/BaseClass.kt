@@ -26,7 +26,7 @@ class BaseClass {
         "7.0",
         "Pixel 5 API 24",
         false,
-        "7200",
+        "3000",
         "ru.sportmaster.app.handh.dev",
         "ru.sportmaster.app.presentation.start.StartActivity",
         "/Users/headhandh/Downloads/sportmaster-4.0.13.5605_dev_beta.apk"
@@ -55,7 +55,7 @@ class BaseClass {
 
     @Test
     fun testOne(){
-        TimeUnit.SECONDS.sleep(3)//timeout for start
+        TimeUnit.SECONDS.sleep(1)//timeout for start
 
         var screenResult = true
         //~~~ SPLASH
