@@ -13,6 +13,10 @@ enum class LocatorType{
     TEXT
 }
 
+    /*
+    Тут внутри класса LocatorElement, ты используешь LocatorType, продумай момент, что в экземплярах
+    LocatorElement мы будем сохранять далее локаторы и для iOS.
+     */
 class LocatorElement(
     val locatorType: LocatorType = LocatorType.ID,
     val androidAccessibilityId: String = "",
@@ -20,6 +24,10 @@ class LocatorElement(
     val androidXpath: String = "",
     val text: String = ""
 ){
+    /*
+    я думаю эту функцию стоит перенести в класс TestMethods, этот пакет лучше использовать для хранения
+    данных классов
+    */
     fun getMobileElement(driver: AppiumDriver<MobileElement>?): MobileElement? {
         return when (locatorType) {
             LocatorType.ID -> {

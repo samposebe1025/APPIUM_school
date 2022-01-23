@@ -12,6 +12,10 @@ data class User constructor(
     val homeNumber: String = ""
 )
 
+/*
+Тут можно было не указывать номера телефона, так как объявил этот номер по умолчанию
+в конструткоре класса User
+ */
 val user = User(
     phoneNumber = "9999999973",
     name = "SamPoSebe",
