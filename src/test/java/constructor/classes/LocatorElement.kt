@@ -8,44 +8,73 @@ import io.appium.java_client.ios.IOSDriver
 
 enum class LocatorType{
     ID,
-    ACCESSIBILITY_ID,
-    XPATH,
+    ANDROID_ACCESSIBILITY_ID,
+    ANDROID_XPATH,
+    IOS_XPATH,
+    IOS_ACCESSIBILITY_ID,
     TEXT
 }
 
 class LocatorElement(
-    val locatorType: LocatorType = LocatorType.ID,
+    val androidLocatorType: LocatorType = LocatorType.ID,
     val androidAccessibilityId: String = "",
     val androidId: String = "",
     val androidXpath: String = "",
+    val iosLocatorType: LocatorType = LocatorType.IOS_XPATH,
+    val iosXpath: String = "",
+    val iosAccessibilityId: String = "",
     val text: String = ""
 ){
-    fun getMobileElement(driver: AppiumDriver<MobileElement>?): MobileElement? {
-        return when (locatorType) {
-            LocatorType.ID -> {
-                driver?.findElementById(androidId)
+    fun getMobileElement(driver: AppiumDriver<MobileElement>?): MobileElement?{
+        return when (driver){
+            is AndroidDriver -> {
+                getMobileElementAndroid(driver)
             }
-            LocatorType.ACCESSIBILITY_ID -> {
-                driver?.findElementByAccessibilityId(androidAccessibilityId)
+            is IOSDriver -> {
+                getMobileElementIOS(driver)
             }
-            LocatorType.XPATH -> {
-                driver?.findElementByXPath(androidXpath)
-            }
-            LocatorType.TEXT -> {
-                (driver as AndroidDriver<MobileElement>).findElementByAndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true).instance(0))"
-                            +".scrollIntoView(new UiSelector().textMatches(\"$text\").instance(0))"
-                )
-            }
+            else -> null
         }
     }
 
-}
+    private fun getMobileElementAndroid(driver: AppiumDriver<MobileElement>?): MobileElement? {
+        try {
+            return when (androidLocatorType) {
+                LocatorType.ID -> {
+                    driver?.findElementById(androidId)
+                }
+                LocatorType.ANDROID_ACCESSIBILITY_ID -> {
+                    driver?.findElementByAccessibilityId(androidAccessibilityId)
+                }
+                LocatorType.ANDROID_XPATH -> {
+                    driver?.findElementByXPath(androidXpath)
+                }
+                LocatorType.TEXT -> {
+                    (driver as AndroidDriver<MobileElement>).findElementByAndroidUIAutomator(
+                        "new UiScrollable(new UiSelector().scrollable(true).instance(0))"
+                                + ".scrollIntoView(new UiSelector().textMatches(\"$text\").instance(0))"
+                    )
+                }
+                else -> null
+            }
+        } catch (exp: org.openqa.selenium.NoSuchElementException){
+            return null
+        }
+    }
 
-val ex = LocatorElement(
-    locatorType = LocatorType.ID,
-    androidAccessibilityId = "",
-    androidId = "",
-    androidXpath = "",
-    text = ""
-)
+    private fun getMobileElementIOS(driver: AppiumDriver<MobileElement>?): MobileElement? {
+        try{
+            return when (iosLocatorType) {
+                LocatorType.IOS_ACCESSIBILITY_ID -> {
+                    driver?.findElementByAccessibilityId(iosAccessibilityId)
+                }
+                LocatorType.IOS_XPATH -> {
+                    driver?.findElementByXPath(iosXpath)
+                }
+                else -> null
+            }
+        } catch (exp: org.openqa.selenium.NoSuchElementException){
+            return null
+        }
+    }
+}

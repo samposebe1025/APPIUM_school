@@ -15,6 +15,10 @@ import java.util.concurrent.TimeUnit
 
 open class TestMethods: BaseClass() {
 
+    fun isThereAnElement(
+        locator: LocatorElement): Boolean =
+            locator.getMobileElement(driver) != null
+
     fun clickToElement(
         locator: LocatorElement,
         timeout: Long = 1
@@ -28,7 +32,13 @@ open class TestMethods: BaseClass() {
         inputText: String,
         timeout: Long = 1
     ) {
-        locator.getMobileElement(driver)?.sendKeys(inputText)
+        when (driver){
+            is AndroidDriver ->
+                locator.getMobileElement(driver)?.sendKeys(inputText)
+            is IOSDriver ->
+                locator.getMobileElement(driver)?.setValue(inputText)
+        }
+
         TimeUnit.SECONDS.sleep(timeout)
     }
 

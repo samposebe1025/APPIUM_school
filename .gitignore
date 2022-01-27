@@ -324,7 +324,7 @@ cucumber-html-reports
 .DS_Store
 
 
-#Debug testng.xml
+#Debug testngAndroid.xml
 
 testng_Android_Pixel2_android10_debug.xml
 

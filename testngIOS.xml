@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite for iOS">
+    <parameter name="paramPlatformName" value="iOS"/>
+    <parameter name="paramPlatformVersion" value="13.7"/>
+    <parameter name="paramDeviceName" value="iPhone SE (2nd generation)"/>
+    <parameter name="paramUDID" value=""/>
+    <parameter name="timeout" value="7200"/>
+    <parameter name="paramTimeToDelay" value="6"/>
+    <test verbose="2" preserve-order="true" name="Android tests" parallel="none">
+        <classes>
+            <class name="tests.TestOne">
+                <methods>
+                    <include name="testOne"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

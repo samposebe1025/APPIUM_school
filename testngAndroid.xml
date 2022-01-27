@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite for Android">
+    <parameter name="paramPlatformName" value="Android"/>
+    <parameter name="paramPlatformVersion" value="7.0"/>
+    <parameter name="paramDeviceName" value="Pixel 5 API 24"/>
+    <parameter name="paramUDID" value=""/>
+    <parameter name="timeout" value="7200"/>
+    <parameter name="paramTimeToDelay" value="6"/>
+    <test verbose="2" preserve-order="true" name="Android tests" parallel="none">
+        <classes>
+            <class name="tests.TestOne">
+                <methods>
+                    <include name="testOne"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
